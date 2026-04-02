@@ -85,10 +85,13 @@ export default function App() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative w-full max-w-[340px] sm:max-w-sm bg-white/60 backdrop-blur-xl border border-white/50 shadow-2xl rounded-[2rem] p-3 sm:p-5 overflow-hidden mx-auto"
+        className="relative w-full max-w-[340px] sm:max-w-sm bg-white/60 backdrop-blur-xl border border-white/50 shadow-2xl rounded-[2rem] p-3 sm:p-5 overflow-hidden mx-auto group/card"
       >
-        {/* Card Inner Glow */}
+        {/* Card Inner Glow & Animated Reflection */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden rounded-[2rem]">
+          <div className="absolute top-0 left-0 w-[150%] h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[150%] -skew-x-[15deg] animate-[card-shine_6s_infinite_ease-in-out]" />
+        </div>
 
         <div className="relative z-10 flex flex-col items-center">
           <motion.div 

@@ -42,3 +42,8 @@
 @keyframes shimmer {
   100% { transform: translateX(100%); }
 }
+
+@keyframes card-shine {
+  0% { transform: translateX(-150%) skewX(-15deg); }
+  20%, 100% { transform: translateX(200%) skewX(-15deg); }
+}
