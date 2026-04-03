@@ -96,7 +96,7 @@ export default function App() {
         className="relative w-full max-w-[340px] sm:max-w-sm bg-white/60 backdrop-blur-xl border border-white/50 shadow-2xl rounded-2xl p-3 sm:p-5 overflow-hidden mx-auto group/card"
       >
         {/* Watermark Logo */}
-        <div className="absolute top-1/2 right-[-15%] -translate-y-1/2 w-48 h-48 opacity-[0.04] pointer-events-none z-0">
+        <div className="absolute top-1/2 right-[-25%] -translate-y-1/2 w-72 h-72 opacity-[0.04] pointer-events-none z-0">
           <img src="/logo.png" alt="" className="w-full h-full object-contain" />
         </div>
 
