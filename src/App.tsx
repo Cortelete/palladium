@@ -13,7 +13,7 @@ const IconButton = ({ icon, onClick, href, ariaLabel }: any) => {
     <motion.div
       whileHover={{ scale: 1.1, y: -2 }}
       whileTap={{ scale: 0.9 }}
-      className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/70 hover:bg-white/95 backdrop-blur-md border border-white/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(37,99,235,0.2)] text-blue-700 transition-all duration-300 relative overflow-hidden group"
+      className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-white/70 hover:bg-white/95 backdrop-blur-md border border-white/60 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(37,99,235,0.2)] text-blue-700 transition-all duration-300 relative overflow-hidden group"
       aria-label={ariaLabel}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
@@ -77,19 +77,32 @@ export default function App() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-100 animate-gradient-xy flex items-center justify-center p-2 sm:p-4 md:p-6 font-sans">
       {/* Animated Background Overlay */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-300/20 blur-[100px] animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute top-[60%] -right-[10%] w-[60%] h-[60%] rounded-full bg-blue-400/10 blur-[120px] animate-pulse" style={{ animationDuration: '12s' }} />
+        <motion.div 
+          animate={{ scale: [1, 1.2, 1], x: [0, 50, 0], y: [0, 30, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-300/20 blur-[100px]" 
+        />
+        <motion.div 
+          animate={{ scale: [1, 1.3, 1], x: [0, -40, 0], y: [0, 50, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[60%] -right-[10%] w-[60%] h-[60%] rounded-full bg-blue-400/10 blur-[120px]" 
+        />
       </div>
 
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative w-full max-w-[340px] sm:max-w-sm bg-white/60 backdrop-blur-xl border border-white/50 shadow-2xl rounded-[2rem] p-3 sm:p-5 overflow-hidden mx-auto group/card"
+        className="relative w-full max-w-[340px] sm:max-w-sm bg-white/60 backdrop-blur-xl border border-white/50 shadow-2xl rounded-2xl p-3 sm:p-5 overflow-hidden mx-auto group/card"
       >
+        {/* Watermark Logo */}
+        <div className="absolute top-1/2 right-[-15%] -translate-y-1/2 w-48 h-48 opacity-[0.04] pointer-events-none z-0">
+          <img src="/logo.png" alt="" className="w-full h-full object-contain" />
+        </div>
+
         {/* Card Inner Glow & Animated Reflection */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent pointer-events-none" />
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden rounded-[2rem]">
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden rounded-2xl">
           <div className="absolute top-0 left-0 w-[150%] h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[150%] -skew-x-[15deg] animate-[card-shine_6s_infinite_ease-in-out]" />
         </div>
 
@@ -100,7 +113,7 @@ export default function App() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="mb-1.5"
           >
-            <CoinLogo src="/logo.png" alt="Shopping Palladium Ponta Grossa" />
+            <CoinLogo src="/logo.png" alt="Shopping Palladium Ponta Grossa" onSpinComplete={() => setActiveModal('sobre')} />
           </motion.div>
 
           <motion.h1 
@@ -199,7 +212,7 @@ export default function App() {
 
       <Modal isOpen={activeModal === 'alimentacao'} onClose={() => setActiveModal(null)} title="Praça de Alimentação">
         <div className="space-y-6 py-2 text-center">
-          <div className="bg-blue-50/50 p-6 rounded-3xl border border-blue-100">
+          <div className="bg-blue-50/50 p-6 rounded-xl border border-blue-100">
             <Utensils className="w-12 h-12 text-blue-600 mx-auto mb-4" />
             <h3 className="text-xl font-display font-bold text-gray-900 mb-2">Bateu aquela fome? 🍔🍕</h3>
             <p className="text-gray-600 text-sm sm:text-base mb-6">
@@ -215,7 +228,7 @@ export default function App() {
 
       <Modal isOpen={activeModal === 'sobre'} onClose={() => setActiveModal(null)} title="Quem somos nós?">
         <div className="space-y-6 text-gray-700 leading-relaxed font-sans">
-          <div className="bg-blue-50/50 p-4 rounded-2xl border border-blue-100">
+          <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
             <p className="text-base sm:text-lg font-medium text-gray-900">
               O Shopping Palladium Ponta Grossa é muito mais que um shopping — é um dos principais pontos de encontro dos Campos Gerais 💥
             </p>
@@ -230,7 +243,7 @@ export default function App() {
             Hoje, é referência regional, conectando dezenas de cidades ao redor de Ponta Grossa.
           </p>
 
-          <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100">
+          <div className="bg-gray-50 p-5 rounded-xl border border-gray-100">
             <h3 className="font-bold text-gray-900 mb-3">Aqui você encontra tudo em um só lugar:</h3>
             <ul className="space-y-2 text-sm sm:text-base">
               <li className="flex items-center gap-2">🛍️ <span>Lojas para todos os estilos</span></li>
@@ -241,7 +254,7 @@ export default function App() {
             </ul>
           </div>
 
-          <div className="flex items-start gap-3 p-4 bg-blue-50/50 rounded-2xl border border-blue-100">
+          <div className="flex items-start gap-3 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
             <MapPin className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
             <p className="text-sm sm:text-base text-blue-900">
               Localizado no coração da cidade, com acesso rápido de qualquer bairro.
@@ -263,7 +276,7 @@ export default function App() {
               required 
               value={contatoNome}
               onChange={(e) => setContatoNome(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white"
               placeholder="Seu nome completo"
             />
           </div>
@@ -274,7 +287,7 @@ export default function App() {
               required 
               value={contatoIdade}
               onChange={(e) => setContatoIdade(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white"
               placeholder="Sua idade"
             />
           </div>
@@ -285,13 +298,13 @@ export default function App() {
               value={contatoMotivo}
               onChange={(e) => setContatoMotivo(e.target.value)}
               rows={4}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white resize-none"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white resize-none"
               placeholder="Como podemos ajudar?"
             />
           </div>
           <button 
             type="submit"
-            className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+            className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
           >
             <Send className="w-4 h-4" />
             Enviar para WhatsApp
@@ -304,7 +317,7 @@ export default function App() {
           <p className="text-gray-600 text-center text-sm sm:text-base">
             Rua Ermelino de Leão, 703 - Olarias, Ponta Grossa - PR, 84035-000
           </p>
-          <div className="w-full h-64 sm:h-80 rounded-2xl overflow-hidden border border-gray-200 shadow-inner">
+          <div className="w-full h-64 sm:h-80 rounded-xl overflow-hidden border border-gray-200 shadow-inner">
             <iframe 
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.2122370477355!2d-50.15459322462154!3d-25.094675977777072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e81a45d98b7591%3A0xb232179c3f49f94e!2sPalladium%20Shopping%20Center%20Ponta%20Grossa!5e0!3m2!1spt-BR!2sbr!4v1775066221078!5m2!1spt-BR!2sbr" 
               width="100%" 
@@ -319,7 +332,7 @@ export default function App() {
             href="https://maps.app.goo.gl/YqYqYqYqYqYqYqYq9" // Replace with actual shortlink if available
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-4 bg-gray-900 hover:bg-black text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+            className="w-full py-4 bg-gray-900 hover:bg-black text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
           >
             <Map className="w-4 h-4" />
             Abrir no Google Maps
@@ -356,12 +369,12 @@ export default function App() {
             value={feedback}
             onChange={(e) => setFeedback(e.target.value)}
             rows={5}
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white resize-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white resize-none"
             placeholder="Deixe seu comentário ou sugestão..."
           />
           <button 
             type="submit"
-            className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all"
+            className="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all"
           >
             Enviar Feedback
           </button>
@@ -385,7 +398,7 @@ export default function App() {
             </p>
           </div>
           
-          <form onSubmit={handleDevSubmit} className="space-y-4 bg-gray-50 p-5 rounded-2xl border border-gray-100">
+          <form onSubmit={handleDevSubmit} className="space-y-4 bg-gray-50 p-5 rounded-xl border border-gray-100">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Seu Nome</label>
               <input 
@@ -393,13 +406,13 @@ export default function App() {
                 required 
                 value={devNome}
                 onChange={(e) => setDevNome(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
                 placeholder="Como devemos te chamar?"
               />
             </div>
             <button 
               type="submit"
-              className="w-full py-4 bg-gradient-to-r from-gray-900 to-gray-800 hover:from-black hover:to-gray-900 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+              className="w-full py-4 bg-gradient-to-r from-gray-900 to-gray-800 hover:from-black hover:to-gray-900 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
             >
               <Send className="w-4 h-4" />
               Quer um site incrível como esse? Fale comigo! 🚀

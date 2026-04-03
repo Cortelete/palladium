@@ -22,10 +22,12 @@ export function Modal({ isOpen, onClose, children, title }: ModalProps) {
             className="fixed inset-0 bg-black/40 backdrop-blur-sm"
           />
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+            initial={{ opacity: 0, scale: 0.8, y: 40, rotateX: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 40, rotateX: -15 }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            style={{ transformPerspective: 1000 }}
+            className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
           >
             {title && (
               <div className="flex items-center justify-between p-5 sm:p-6 border-b border-gray-100">
@@ -34,7 +36,7 @@ export function Modal({ isOpen, onClose, children, title }: ModalProps) {
                 </h2>
                 <button
                   onClick={onClose}
-                  className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
+                  className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -43,7 +45,7 @@ export function Modal({ isOpen, onClose, children, title }: ModalProps) {
             {!title && (
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 z-10 p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors bg-white/80 backdrop-blur-sm shadow-sm"
+                className="absolute top-4 right-4 z-10 p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors bg-white/80 backdrop-blur-sm shadow-sm"
               >
                 <X className="w-5 h-5" />
               </button>

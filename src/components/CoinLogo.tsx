@@ -1,9 +1,10 @@
 import { motion, useAnimation } from 'motion/react';
 import { useState, useEffect, useRef } from 'react';
 
-export function CoinLogo({ src, alt }: { src: string; alt: string }) {
+export function CoinLogo({ src, alt, onSpinComplete }: { src: string; alt: string; onSpinComplete?: () => void }) {
   const [velocity, setVelocity] = useState(0);
   const rotationRef = useRef(0);
+  const isSpinningRef = useRef(false);
   const controls = useAnimation();
 
   useEffect(() => {
@@ -30,8 +31,18 @@ export function CoinLogo({ src, alt }: { src: string; alt: string }) {
            if (remainder !== 0) {
              // Snap to 0 or 360 depending on which is closer
              const target = rotationRef.current - remainder + (remainder > 180 ? 360 : 0);
-             controls.start({ rotateY: target, transition: { type: 'spring', stiffness: 100, damping: 15 } });
+             controls.start({ rotateY: target, transition: { type: 'spring', stiffness: 100, damping: 15 } }).then(() => {
+                if (isSpinningRef.current && onSpinComplete) {
+                   onSpinComplete();
+                   isSpinningRef.current = false;
+                }
+             });
              rotationRef.current = target;
+           } else {
+             if (isSpinningRef.current && onSpinComplete) {
+                onSpinComplete();
+                isSpinningRef.current = false;
+             }
            }
         } else {
            controls.set({ rotateY: rotationRef.current });
@@ -45,10 +56,11 @@ export function CoinLogo({ src, alt }: { src: string; alt: string }) {
 
     animationFrameId = requestAnimationFrame(updateRotation);
     return () => cancelAnimationFrame(animationFrameId);
-  }, [velocity, controls]);
+  }, [velocity, controls, onSpinComplete]);
 
   const handleClick = () => {
     setVelocity((prev) => prev + 1080); // Add 3 spins per second to velocity
+    isSpinningRef.current = true;
   };
 
   return (
